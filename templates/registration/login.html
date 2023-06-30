@@ -25,14 +25,14 @@
                         <a href="{%url 'sample_profile:registration'%}" class="btn btn-secondary btn-lg btn-block">Register</a>
                     </div>
                  
-                    {% comment %} {% if messages %}
+                     {% if messages %}
                         {% for message in messages %}
                             <div class="alert alert-{{message.tags}}">
                                 {{message}}
                             </div>
                         {% endfor %}
                        
-                    {% endif %} {% endcomment %}
+                    {% endif %} 
             </div>
         </form>      
         

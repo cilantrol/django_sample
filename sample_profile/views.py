@@ -24,13 +24,26 @@ class LoginView(LoginView):
         
     template_name = 'registration/login.html'
     authentication_form = AuthenticationForm
-    success_url = reverse_lazy('sample_profile/profile/')
+    success_url = reverse_lazy('sample_profile:profile')
     
+    #django still redirects if this is removed. why? I thought this enables settings.py login redirect
     redirect_authenticated_user = True
     
-    # def form_valid(self, form):
-    #     response = super().form_valid(form)
-        # messages = messages.success(self.request, 'You are now logged in')
+    
+    #messages not yet working
+    def form_valid(self, form):
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        
+        if user is not None:
+            login(self.request, user)
+            # return self.form_valid(form)
+            return redirect('sample_profile:profile')
+        else:
+            messages.info(self.request, 'Username or password is incorrect')
+            return self.form_invalid(form)
+        
         # return response
     
     # def form_valid(self, request):
@@ -40,14 +53,7 @@ class LoginView(LoginView):
         #     username = request.POST.get('username')               
         #     password = request.POST.get('password')       
                    
-        #     user = authenticate(username=username, password=password)
-            
-        #     if user is not None:
-        #         login(self.request, user)
-        #         return redirect('sample_profile:profile')
-            # else:
-            #     messages.info(self.request, 'Username or password is incorrect')
-            #     return self.form_invalid(form)
+
               
 class RegistrationView(FormView):
     
