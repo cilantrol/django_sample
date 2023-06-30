@@ -1,0 +1,39 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+    <section class="py-5">
+        <div class="container px-5 my-5">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="form-group row justify-content-center">
+                    <h1 class="display-5 fw-bold">Registration</h1>
+                    <p class="lead fw-normal mb-4">Please fill out the form below to register for an account!</p>
+                    {% for field in form %}
+                        <div class="col-md-2">
+                            {{field.label_tag}}
+                        </div>                  
+                        <div class="col-md-4">                            
+                            {{field}}  
+                        </div>
+                        <div class="col-md-6">
+                            {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small> 
+                            {% endif %}   
+                        </div>
+                        {% if field.errors %}
+                            <div class="text-danger">
+                                {% for error in field.errors %}
+                                    <span class="help-block">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %} 
+                    {% endfor %}
+                    
+                </div>
+                <input class="btn btn-dark form-control" type="submit" value="Submit">
+            </form>
+        </div>
+    </section>
+
+
+{% endblock %}
