@@ -115,14 +115,20 @@ class CreateProfileView(FormView):
         # return super().form_valid(form)
     
 class ProfileView(TemplateView):
-    
+   
     model = Profile
     template_name = 'sample_profile/profile.html'
-    context_object_name = 'profile'
+    context_object_name = 'profiles'
     
     
-    def get_object(self, queryset=None):
-        return self.request.user.profile
+    # def get(self, request):
+    #     user_profile = Profile.objects.get(user=request.user)
+    #     context = {'user_profile': user_profile}
+    #     context = {}
+    #     return render(request, self.template_name, context)
+    
+    # def get_object(self, queryset=None):
+    #     return self.request.user.profile
    
 class LogoutView(TemplateView):
     

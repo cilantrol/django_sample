@@ -14,11 +14,10 @@ class Profile(models.Model):
         (3, 'Other'),
         (4, 'Prefer not to say'),
     )
-    
      
     #key
     # user_id = models.OneToOneField(User, on_delete=models.CASCADE)
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     # user_id = models.IntegerField(null=False)
     # was previously user, did not work, django requires the field to be user_id
     # want to maintain one to one relationship with user
@@ -36,6 +35,8 @@ class Profile(models.Model):
     # avatar_url = models.CharField(max_length=1000, default='/imgs/default_avatar.png', null=True, blank= True)
     # website_url = models.CharField(max_length=1000, null=True, blank= True)
     
+    # def __str__(self):
+    #     return self.user.username
 
 
 

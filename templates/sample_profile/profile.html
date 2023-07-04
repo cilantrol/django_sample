@@ -14,14 +14,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for field in profile.fields %}
+                        {% for profile in profiles %}
                             <tr>
-                                <td>{{ field.name }}</td>
-                                <td>{{ field.value }}</td>
+                                <td>{{ profile.attribute }}</td>
+
                             </tr>
                         {% endfor %}
 
-                        
                     </tbody>
                 </table>
             </div>
