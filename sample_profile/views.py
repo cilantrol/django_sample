@@ -20,6 +20,11 @@ class FeaturesView(TemplateView):
     def get(self, request, *args, **kwargs):
         return render(request, 'sample_profile/features.html', {})    
     
+def not_logged_in(user):
+    return not user.is_authenticated
+
+# @user_passes_test(not_logged_in, login_url='/sample_profile/profile/')
+
 class LoginView(LoginView):
         
     template_name = 'registration/login.html'
@@ -89,13 +94,19 @@ class CreateProfileView(FormView):
         context = super().get_context_data(**kwargs)
         user = self.request.user
         context["user"] = user
+        
+        print( 'user: ', user)
         return context
         
     def form_valid(self, form):
-
-        # user = self.request.user
-        profile = form.save(commit=False)
+               
+        profile = form.save()
+        print('profile: ', profile)
+        
         profile.user = form.cleaned_data.get('user')
+        
+        print('profile.user: ', profile.user)
+        
         profile.save()
         
         return super().form_valid(form)
